@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 
-export const CharactersItem = ({ created, name }) => {
+export const CharactersItem = ({ id, name, handleSave, handleDelete }) => {
   const [isEdit, setIsEdit] = useState(false);
   const [value, setValue] = useState(name);
 
@@ -13,15 +13,18 @@ export const CharactersItem = ({ created, name }) => {
   };
 
   const onSave = () => {
+    handleSave(id, value);
+    setIsEdit(false);
     // ваш код
   };
 
   const onDelete = () => {
+    handleDelete(id);
     // ваш код
   };
 
   return (
-    <li key={created} className="character">
+    <li className="character">
       <div className="character__header">
         {isEdit ? (
           <input value={value} onChange={onChange} />
