@@ -16,6 +16,10 @@ export const CharactersItem = ({ created, name }) => {
     // ваш код
   };
 
+  const onDelete = () => {
+    // ваш код
+  };
+
   return (
     <li key={created} className="character">
       <div className="character__header">
@@ -25,7 +29,12 @@ export const CharactersItem = ({ created, name }) => {
           <h2 className="character__name">{name}</h2>
         )}
         <div>
-          {!isEdit && <button onClick={toggleEditMode}>Edit</button>}
+          {!isEdit && (
+            <div>
+              <button onClick={toggleEditMode}>Edit</button>
+              <button onClick={onDelete}>X</button>
+            </div>
+          )}
           {isEdit && (
             <div>
               <button onClick={onSave}>Save</button>

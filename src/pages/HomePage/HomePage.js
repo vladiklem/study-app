@@ -12,9 +12,13 @@ export const HomePage = () => {
       });
   }, []);
 
-  const handleDelete = () => {};
+  const handleDelete = (id) => {
+    // ваш код
+  };
 
-  const handleEdit = () => {};
+  const handleEdit = () => {
+    // ваш код
+  };
 
   return (
     <main>
