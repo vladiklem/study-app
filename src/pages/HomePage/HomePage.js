@@ -1,32 +1,30 @@
 import { useEffect, useState } from "react";
+import { deleteItemAction, duplicateItemAction, getDataSuccessAction, saveItemAction } from "../../store/actions";
+import { useStore } from "../../store/useStore";
 import { CharactersList } from "./CharactersList/CharactersList";
 
 export const HomePage = () => {
-  const [data, setData] = useState([]);
+  // const [data, setData] = useState([]);
+  const [state, dispatch] = useStore({ data: [] });
 
   useEffect(() => {
     fetch("https://rickandmortyapi.com/api/character")
       .then((response) => response.json())
       .then((data) => {
-        setData(
-          data.results.map((item, index) => ({
-            ...item,
-            id: item.created + index,
-          }))
-        );
+        dispatch(getDataSuccessAction(data.results))
       });
   }, []);
 
   const handleDelete = (id) => {
-    setData((data) => data.filter((item) => item.id !== id));
-    // ваш код
+    dispatch(deleteItemAction(id));
   };
 
   const handleSave = (id, name) => {
-    setData((data) =>
-      data.map((item) => (item.id === id ? { ...item, name } : item))
-    );
-    // ваш код
+    dispatch(saveItemAction(id, name));
+  };
+
+  const handleDuplicate = (index, item) => {
+    dispatch(duplicateItemAction(index, item));
   };
 
   return (
@@ -35,7 +33,8 @@ export const HomePage = () => {
         <CharactersList
           handleDelete={handleDelete}
           handleSave={handleSave}
-          list={data}
+          handleDuplicate={handleDuplicate}
+          list={state.data}
         />
       </section>
     </main>

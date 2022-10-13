@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 
-export const CharactersItem = ({ id, name, handleSave, handleDelete }) => {
+export const CharactersItem = ({ item, handleSave, handleDelete, handleDuplicate, index }) => {
+  const { id, name } = item;
   const [isEdit, setIsEdit] = useState(false);
   const [value, setValue] = useState(name);
 
@@ -15,13 +16,15 @@ export const CharactersItem = ({ id, name, handleSave, handleDelete }) => {
   const onSave = () => {
     handleSave(id, value);
     setIsEdit(false);
-    // ваш код
   };
 
   const onDelete = () => {
     handleDelete(id);
-    // ваш код
   };
+
+  const onDuplicate = () => {
+    handleDuplicate(index, item);
+  }
 
   return (
     <li className="character">
@@ -35,6 +38,7 @@ export const CharactersItem = ({ id, name, handleSave, handleDelete }) => {
           {!isEdit && (
             <div>
               <button onClick={toggleEditMode}>Edit</button>
+              <button onClick={onDuplicate}>Duplicate</button>
               <button onClick={onDelete}>X</button>
             </div>
           )}
