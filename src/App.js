@@ -1,12 +1,12 @@
 import { Provider } from "react-redux";
+import RoutesContainer from "./containers/RoutesContainer/RoutesContainer";
 
-import { HomePage } from "./pages/HomePage/HomePage";
-import { store } from "./store/index";
+import { store } from "./redux-store/index";
 
 function App() {
   return (
     <Provider store={store}>
-      <HomePage />
+      <RoutesContainer />
     </Provider>
   );
 }

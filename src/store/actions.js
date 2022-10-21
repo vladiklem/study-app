@@ -7,7 +7,7 @@ export const deleteItemAction = (id) => ({
     },
 });
 
-export const duplicateItemAction = (index, item) => ({
+export const duplicateItemAction = ( index, item) => ({
     type: DUPLICATE_ITEM,
     payload: {
         index,

@@ -1,18 +1,27 @@
 import { useEffect, useState } from "react";
-import { deleteItemAction, duplicateItemAction, getDataSuccessAction, saveItemAction } from "../../store/actions";
-import { useStore } from "../../store/useStore";
+import { useDispatch, useSelector } from "react-redux";
+import {
+  deleteItemAction,
+  duplicateItemAction,
+  getDataSuccessAction,
+  saveItemAction,
+  getDataRequestAction,
+} from "../../redux-store/entity/actions";
+import {
+  charactersSelector,
+  characterStatusSelector,
+} from "../../redux-store/entity/selectors";
 import { CharactersList } from "./CharactersList/CharactersList";
 
 export const HomePage = () => {
-  // const [data, setData] = useState([]);
-  const [state, dispatch] = useStore({ data: [] });
+  const dispatch = useDispatch();
+  const characters = useSelector(charactersSelector);
+  const status = useSelector(characterStatusSelector);
+
+  const [counter, setCounter] = useState(0);
 
   useEffect(() => {
-    fetch("https://rickandmortyapi.com/api/character")
-      .then((response) => response.json())
-      .then((data) => {
-        dispatch(getDataSuccessAction(data.results))
-      });
+    dispatch(getDataRequestAction());
   }, []);
 
   const handleDelete = (id) => {
@@ -30,12 +39,17 @@ export const HomePage = () => {
   return (
     <main>
       <section>
-        <CharactersList
-          handleDelete={handleDelete}
-          handleSave={handleSave}
-          handleDuplicate={handleDuplicate}
-          list={state.data}
-        />
+        <button onClick={() => setCounter(counter + 1)}>+</button>
+        {status === FETCH_STATUSES.REQUEST ? (
+          <p>Loading...</p>
+        ) : (
+          <CharactersList
+            handleDelete={handleDelete}
+            handleSave={handleSave}
+            handleDuplicate={handleDuplicate}
+            list={characters}
+          />
+        )}
       </section>
     </main>
   );

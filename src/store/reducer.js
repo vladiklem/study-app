@@ -6,7 +6,6 @@ import {
 } from "./constants";
 
 export const reducer = (state, action) => {
-  console.log(action);
   switch (action.type) {
     case GET_DATA_SUCCESS:
       return {
@@ -21,7 +20,7 @@ export const reducer = (state, action) => {
         ...state,
         data: state.data.filter((item) => item.id !== action.payload.id),
       };
-    case DUPLICATE_ITEM:
+    case "DUPLICATE_ITEM":
       return {
         ...state,
         data: [
